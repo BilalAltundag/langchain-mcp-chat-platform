@@ -1,0 +1,217 @@
+:root {
+    --primary-color: #007AFF;
+    --background-color: #F2F2F7;
+    --text-color: #1C1C1E;
+    --border-radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.phone-container {
+    padding: 20px;
+}
+
+.phone {
+    background-color: var(--background-color);
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    width: 375px;
+    height: 812px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+.notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 30px;
+    background-color: #000;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 1000;
+}
+
+.screen {
+    height: 100%;
+    padding: 50px 20px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 16px;
+}
+
+.chat-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.example-commands {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.command-bubble {
+    background-color: #E5E5EA;
+    padding: 12px 16px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.command-bubble:hover {
+    background-color: #D1D1D6;
+}
+
+.input-container {
+    display: flex;
+    gap: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#messageInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 8px;
+}
+
+#sendButton {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#sendButton:hover {
+    background-color: #0066CC;
+}
+
+#sendButton svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Mesaj stilleri */
+.message {
+    margin-bottom: 12px;
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.message.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.user-message {
+    background-color: var(--primary-color);
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.assistant-message {
+    background-color: #E5E5EA;
+    color: var(--text-color);
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+}
+
+/* Özel scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #CED4DA;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ADB5BD;
+}
+
+/* Yükleniyor animasyonu */
+.typing-indicator {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #E5E5EA;
+    border-radius: var(--border-radius);
+    margin-bottom: 12px;
+    max-width: 80px;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #999;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+} 

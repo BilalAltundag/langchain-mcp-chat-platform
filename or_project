@@ -1,0 +1,11 @@
+[33mcommit 79c9c260bce145fda6e5abbb8cde70d2439daf76[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: BilalAltundag <bilalaltundag2000@gmail.com>
+Date:   Fri Apr 11 16:23:04 2025 +0300
+
+    Remove API keys, add environment variables, update documentation
+
+[33mcommit 64cc2e62df93c447033e14fa4edc7bff2a57ba0f[m
+Author: mert <mertcin0@outlook.com>
+Date:   Fri Apr 11 16:03:45 2025 +0300
+
+    Initial commit with full project structure

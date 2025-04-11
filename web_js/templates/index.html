@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Muhasebe Asistanı</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #007AFF;
+            --background-color: #F2F2F7;
+            --text-color: #1C1C1E;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .phone-container {
+            padding: 20px;
+        }
+
+        .phone {
+            background-color: var(--background-color);
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            width: 375px;
+            height: 812px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            z-index: 1000;
+        }
+
+        .screen {
+            height: 100%;
+            padding: 50px 20px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .example-commands {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .command-bubble {
+            background-color: #E5E5EA;
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .command-bubble:hover {
+            background-color: #D1D1D6;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            background-color: white;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #messageInput {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        #sendButton {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #sendButton:hover {
+            background-color: #0066CC;
+        }
+
+        #sendButton svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Mesaj stilleri */
+        .message {
+            margin-bottom: 12px;
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            line-height: 1.4;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .message.fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .user {
+            background-color: var(--primary-color);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+        }
+
+        .assistant {
+            background-color: #E5E5EA;
+            color: var(--text-color);
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+
+        /* Özel scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #CED4DA;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ADB5BD;
+        }
+
+        /* Yükleniyor animasyonu */
+        .typing-indicator {
+            display: none;
+        }
+
+        .indicator-dots {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #E5E5EA;
+            border-radius: var(--border-radius);
+            margin-bottom: 12px;
+            max-width: 80px;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+
+        .indicator-dots span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .indicator-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .indicator-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone">
+            <div class="notch"></div>
+            <div class="screen">
+                <div class="header">
+                    <h1>Muhasebe Asistanı</h1>
+                    <div class="subtitle">Size nasıl yardımcı olabilirim?</div>
+                </div>
+                
+                <div class="chat-container" id="chat-messages">
+                    <!-- Örnek komutlar burada görünecek -->
+                </div>
+                
+                <div class="typing-indicator" id="typing-indicator">
+                    <div class="indicator-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="example-commands">
+                    <div class="command-bubble">"Aylık gelir raporunu göster"</div>
+                    <div class="command-bubble">"Gıda kategorisindeki giderleri listele"</div>
+                </div>
+                
+                <div class="input-container">
+                    <input type="text" id="messageInput" placeholder="Mesajınızı yazın...">
+                    <button id="sendButton">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const clientId = `client-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        let socket = new WebSocket(`ws://${window.location.host}/ws/${clientId}`);
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const chatMessages = document.getElementById('chat-messages');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const commandBubbles = document.querySelectorAll('.command-bubble');
+
+        function addMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${sender} fade-in`;
+            messageElement.textContent = message;
+            
+            chatMessages.appendChild(messageElement);
+            
+            // Trigger reflow for animation
+            messageElement.offsetHeight;
+            messageElement.classList.remove('fade-in');
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                // Kullanıcı mesajını ekrana ekle
+                addMessage(message, 'user');
+                
+                // WebSocket üzerinden mesajı gönder
+                const messageData = {
+                    message: message,
+                    timestamp: new Date().toISOString()
+                };
+                socket.send(JSON.stringify(messageData));
+                
+                // Yanıt beklerken göstergeyi göster
+                showTypingIndicator();
+                
+                // Input alanını temizle
+                messageInput.value = '';
+                
+                // Örnek komutları gizle
+                document.querySelector('.example-commands').style.display = 'none';
+            }
+        }
+
+        // WebSocket bağlantı olayları
+        socket.onopen = function(e) {
+            console.log("WebSocket bağlantısı kuruldu");
+        };
+
+        socket.onmessage = function(event) {
+            // Yanıt geldiğinde göstergeyi gizle
+            hideTypingIndicator();
+            
+            const data = JSON.parse(event.data);
+            if (data.sender === 'assistant') {
+                addMessage(data.message, 'assistant');
+            }
+        };
+
+        socket.onclose = function(event) {
+            if (event.wasClean) {
+                console.log(`Bağlantı düzgün kapatıldı, kod=${event.code}, neden=${event.reason}`);
+            } else {
+                console.log('Bağlantı kesintiye uğradı');
+                // Bağlantıyı tekrar kurma girişimi
+                setTimeout(() => {
+                    socket = new WebSocket(`ws://${window.location.host}/ws/${clientId}`);
+                }, 3000);
+            }
+        };
+
+        socket.onerror = function(error) {
+            console.log(`WebSocket Hatası: ${error.message}`);
+        };
+
+        // Mesaj gönderme olayları
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Örnek komut balonları tıklama olayları
+        commandBubbles.forEach(bubble => {
+            bubble.addEventListener('click', () => {
+                const commandText = bubble.textContent.replace(/^"|"$/g, ''); // Çift tırnakları kaldır
+                messageInput.value = commandText;
+                sendMessage();
+            });
+        });
+    </script>
+</body>
+</html>
+    

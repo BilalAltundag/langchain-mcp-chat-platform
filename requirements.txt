@@ -1,0 +1,26 @@
+# Core dependencies
+fastapi==0.104.1
+uvicorn==0.24.0
+python-multipart==0.0.6
+websockets==12.0
+python-dotenv==1.0.1
+python-dateutil>=2.8.2 
+
+# LangChain dependencies
+langchain==0.1.11
+langchain-mcp-adapters==0.0.1
+langchain-groq==0.0.1
+langchain-google-genai==0.0.11
+langgraph==0.0.1
+mcp==0.0.1
+
+# Database
+SQLite3-api>=0.1.0
+
+# UI
+PySide6==6.8.3
+flask==3.0.2
+flask-cors==4.0.0
+
+# MCP
+fastmcp>=0.1.0 
