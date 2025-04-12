@@ -2,17 +2,22 @@
 
 A versatile chat platform that integrates LangChain, custom MCP (Model Control Protocol) servers, and Google's Gemini AI model for enhanced conversational capabilities.
 
+![WhatsApp Image 2025-04-11 at 4 58 04 PM](https://github.com/user-attachments/assets/1fc93db4-9cc9-4fde-9a2b-fa3b77615682)
+
 ## Features
 
-- **Langchain Integration**: Utilize the power of LangChain for advanced conversation management and tool usage
-- **Google Gemini AI**: Powered by Google's powerful Gemini 2.0 Flash model for natural conversations
+- **Langchain Integration**: Utilize the power of LangChain for advanced conversation management and tool usage  
+- **Google Gemini AI**: Powered by Google's powerful Gemini 2.0 Flash model for natural conversations  
 - **Custom MCP Servers**: Integrates with various MCP servers for specialized functionalities:
-  - Tavily web search and extraction
-  - Gmail integration for email operations
-  - Custom accounting system (muhasebe)
-- **Memory Management**: Conversation history tracking for contextual responses
-- **Web Interface**: Responsive web UI for user interactions
-- **Extensible Architecture**: Easy to add new tools and capabilities
+  - **Tavily web search and extraction** ([Tavily MCP Link](https://smithery.ai/server/@tavily-ai/tavily-mcp))  
+    > Please check the repository and follow setup instructions for integration.
+  - **Gmail integration for email operations** ([Gmail MCP GitHub Repo](https://github.com/GongRzhe/Gmail-MCP-Server))  
+    > Make sure to clone and configure it as per the instructions to enable Gmail features.
+  - **Custom accounting system (muhasebe)**
+- **Memory Management**: Conversation history tracking for contextual responses  
+- **Web Interface**: Responsive web UI for user interactions  
+- **Extensible Architecture**: Easy to add new tools and capabilities  
+
 
 ## Project Structure
 
