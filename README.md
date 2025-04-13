@@ -2,7 +2,7 @@
 
 A versatile chat platform that integrates LangChain, custom MCP (Model Control Protocol) servers, and Google's Gemini AI model for enhanced conversational capabilities.
 
-![WhatsApp Image 2025-04-11 at 4 58 04 PM](https://github.com/user-attachments/assets/1fc93db4-9cc9-4fde-9a2b-fa3b77615682)
+![Ekran Alıntısı](https://github.com/user-attachments/assets/597e1c99-bd52-45aa-9248-35810d597219)
 
 ![image](https://github.com/user-attachments/assets/b93d432f-9b2b-4e2e-a070-f016186c05a2)
 
