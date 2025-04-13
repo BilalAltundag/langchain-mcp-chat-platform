@@ -4,6 +4,9 @@ A versatile chat platform that integrates LangChain, custom MCP (Model Control P
 
 ![WhatsApp Image 2025-04-11 at 4 58 04 PM](https://github.com/user-attachments/assets/1fc93db4-9cc9-4fde-9a2b-fa3b77615682)
 
+![image](https://github.com/user-attachments/assets/b93d432f-9b2b-4e2e-a070-f016186c05a2)
+
+
 ## Features
 
 - **Langchain Integration**: Utilize the power of LangChain for advanced conversation management and tool usage  
@@ -71,18 +74,37 @@ pip install -r requirements.txt
 > pip install langgraph==0.3.29 langgraph-prebuilt==0.1.5 langgraph-sdk==0.1.61
 > ```
 
-### Step 4: Set up Environment Variables
+### Step 4: Install Node.js Dependencies (for Tavily & Gmail)
+If you want to use Tavily search or Gmail features, you'll need to install Node.js and the Smithery CLI:
+
+```bash
+# Install Smithery CLI globally
+npm install -g @smithery/cli
+```
+
+### Step 5: Set up Environment Variables
 Copy the example .env file and edit it with your API keys:
 ```bash
 # Copy the example .env file
 cp .env.example .env
 
 # Then edit the .env file with your preferred text editor
-# Required keys:
-# - GOOGLE_API_KEY for Gemini AI
-# - TAVILY_API_KEY for web search
-# - GMAIL_MCP_KEY for email operations
 ```
+
+Your `.env` file should contain the following keys:
+```
+# Google Gemini API key (required for the AI model)
+GOOGLE_API_KEY="your_google_api_key"
+
+# Smithery CLI key (required for Tavily and Gmail services)
+SMITHERY_KEY="your_smithery_cli_key" 
+```
+
+#### About API Keys
+- **GOOGLE_API_KEY**: Used by the AI model for natural language understanding
+- **SMITHERY_KEY**: Only key required locally to run both Tavily and Gmail MCP servers
+
+> **ÖNEMLİ**: TAVILY_API_KEY ve GMAIL_API_KEY girmenize gerek yoktur. Bu keyler Smithery sitesinde MCP kodları oluşturulurken kullanılır ve bu uygulamada bunlara ihtiyaç yoktur. Sadece SMITHERY_KEY yeterlidir.
 
 #### Alternative: Direct Configuration in Code
 If you don't want to use an .env file, you can directly set the API keys in code:
@@ -91,16 +113,14 @@ Open `web_js/main.py` and replace the environment variable loading with direct a
 ```python
 # Instead of this:
 # google_api_key = os.environ.get("GOOGLE_API_KEY")
-# tavily_api_key = os.environ.get("TAVILY_API_KEY")
-# gmail_mcp_key = os.environ.get("GMAIL_MCP_KEY")
+# smithery_key = os.environ.get("SMITHERY_KEY")
 
 # Use this (replace with your actual API keys):
 google_api_key = "YOUR_GOOGLE_API_KEY_HERE"
-tavily_api_key = "YOUR_TAVILY_API_KEY_HERE"
-gmail_mcp_key = "YOUR_GMAIL_MCP_KEY_HERE"
+smithery_key = "YOUR_SMITHERY_CLI_KEY_HERE"
 ```
 
-### Step 5: Enable Gmail API (for Email Features)
+### Step 6: Enable Gmail API (for Email Features)
 
 Before you can use the Gmail functionality, you need to enable the Gmail API in your Google Cloud project:
 
@@ -176,6 +196,9 @@ The platform integrates with several external services:
 - The `.env` file is not tracked by Git for security reasons
 - Always check the `.env.example` file for required environment variables
 - The application is designed to be modular - you can disable specific services if needed
+- **Smithery CLI Key**: The same Smithery CLI key is used to run both Tavily and Gmail MCP servers through the Smithery CLI. However, each service still requires its respective API key:
+  - Tavily service requires its own TAVILY_API_KEY for web search functionality
+  - Gmail service requires its own GMAIL_API_KEY for email operations
 
 ## Package Dependencies and Versioning
 
@@ -205,6 +228,5 @@ from langgraph.prebuilt import create_react_agent  # This will cause errors
 
 The following API keys are needed:
 - GOOGLE_API_KEY - for Gemini model
-- TAVILY_API_KEY - for web search functionality
-- GMAIL_MCP_KEY - for email functionality 
+- SMITHERY_KEY - for running both Tavily and Gmail MCP servers
 
